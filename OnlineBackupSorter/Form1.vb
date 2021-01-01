@@ -1,7 +1,52 @@
 ﻿Imports System.IO
 Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        VideoPlayer1.settings.volume = 100
+        Call loadingop()
+
+        'On cache
+        ListBox3.Hide()
+        Button4.Hide()
+        Label1.Hide()
+        Label2.Hide()
+        TextBox3.Hide()
+        Button3.Hide()
+        TextBox4.Hide()
+        VideoPlayer1.Hide()
+        PictureBox1.Hide()
+        Button5.Hide()
+        Button6.Hide()
+        TextBox2.Hide()
+
+    End Sub
+    Sub loadingop()
+        ComboBox1.Items.Clear()
+        TextBox1.Text = My.Settings.Adresse1
+        TextBox5.Text = My.Settings.Adresse2
+        TextBox6.Text = My.Settings.Adresse3
+
+        ComboBox1.Items.Clear()
+        ComboBox1.Items.Add(My.Settings.Adresse1)
+        ComboBox1.Items.Add(My.Settings.Adresse2)
+        ComboBox1.Items.Add(My.Settings.Adresse3)
+        ComboBox1.SelectedIndex = 0
+    End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Call importFichiers1()
+        'On remontre
+        ListBox3.Show()
+        Button4.Show()
+        Label1.Show()
+        Label2.Show()
+        TextBox3.Show()
+        Button3.Show()
+        TextBox4.Show()
+        VideoPlayer1.Show()
+        PictureBox1.Show()
+        Button5.Show()
+        Button6.Show()
+        TextBox2.Show()
+
+        Call ImportFichiers1()
         Call ImportListeDossier1()
         MsgBox("Import OK")
     End Sub
@@ -93,7 +138,7 @@ Public Class Form1
         PictureBox1.Image = Nothing
         VideoPlayer1.URL = Nothing
 
-        Call importFichiers1()
+        Call ImportFichiers1()
 
         If ListBox1.Items.Count = 0 Then
             ListBox1.ClearSelected()
@@ -104,9 +149,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        VideoPlayer1.settings.volume = 100
-    End Sub
+
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If ListBox3.SelectedItems.Count = 0 Then Exit Sub
@@ -122,7 +165,7 @@ Public Class Form1
             On Error GoTo 0
         Next
 
-        Call importFichiers1()
+        Call ImportFichiers1()
 
         If ListBox1.Items.Count = 0 Then
             ListBox1.ClearSelected()
@@ -135,5 +178,57 @@ Public Class Form1
     Private Sub ListBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox3.SelectedIndexChanged
         Dim dernierchoix = ListBox3.SelectedItems(ListBox3.SelectedItems.Count - 1).ToString()
         TextBox4.Text = dernierchoix
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        If Panel1.Visible = True Then
+            Panel1.Hide()
+            Exit Sub
+        ElseIf Panel1.Visible = False Then
+            Panel1.Location = New Point(13, 36)
+            Panel1.Size = New Point(808, 234)
+            Panel1.Show()
+            Exit Sub
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If TextBox1.Text = Nothing Then
+            MsgBox("Saisir une adresse à sauvegarder")
+            Exit Sub
+        End If
+
+        My.Settings.Adresse1 = TextBox1.Text
+        My.Settings.Save()
+        ComboBox1.Text = TextBox1.Text
+        Call loadingop()
+
+    End Sub
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        If TextBox5.Text = Nothing Then
+            MsgBox("Saisir une adresse à sauvegarder")
+            Exit Sub
+        End If
+
+        My.Settings.Adresse2 = TextBox5.Text
+        My.Settings.Save()
+        ComboBox1.Text = TextBox5.Text
+        Call loadingop()
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        If TextBox6.Text = Nothing Then
+            MsgBox("Saisir une adresse à sauvegarder")
+            Exit Sub
+        End If
+
+        My.Settings.Adresse3 = TextBox6.Text
+        My.Settings.Save()
+        ComboBox1.Text = TextBox6.Text
+        Call loadingop()
+    End Sub
+
+    Sub gestiondoublon()
+
     End Sub
 End Class
