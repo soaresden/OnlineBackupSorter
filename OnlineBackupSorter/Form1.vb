@@ -3,7 +3,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         VideoPlayer1.settings.volume = 100
         Call loadingop()
-
         'On cache
         ListBox3.Hide()
         Button4.Hide()
@@ -48,6 +47,7 @@ Public Class Form1
 
         Call ImportFichiers1()
         Call ImportListeDossier1()
+        Call gestiondoublon()
         MsgBox("Import OK")
     End Sub
 
@@ -229,6 +229,17 @@ Public Class Form1
     End Sub
 
     Sub gestiondoublon()
+        For Each itm As String In ListBox1.SelectedItems
+            Dim cheminoriginal As String = TextBox1.Text & "\" & itm.ToString
 
+            For i = 0 To ListBox3.Items.Count - 1
+                Dim chemindossierfinal As String = TextBox1.Text & "\" & ListBox3.Items(i).ToString
+                Dim nbdansdossier = Directory.GetFiles(chemindossierfinal, TextBox1.Text).Count
+
+                If nbdansdossier > 0 Then
+                    System.IO.Directory.Delete(cheminoriginal, True)
+                End If
+            Next
+        Next
     End Sub
 End Class
