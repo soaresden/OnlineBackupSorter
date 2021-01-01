@@ -64,7 +64,7 @@ Public Class Form1
         If Path.GetExtension(TextBox2.Text) = ".jpg" Then
             PictureBox1.Show()
 
-            Dim img As Image = Image.FromFile(TextBox1.Text & "\" & TextBox2.Text)
+            Dim img As Image = Image.FromFile(ComboBox1.Text & "\" & TextBox2.Text)
             PictureBox1.Image = New Bitmap(img)
             img.Dispose()
 
@@ -75,7 +75,7 @@ Public Class Form1
             PictureBox1.Hide()
 
             VideoPlayer1.Show()
-            VideoPlayer1.URL = TextBox1.Text & "\" & ListBox1.SelectedItem
+            VideoPlayer1.URL = ComboBox1.Text & "\" & ListBox1.SelectedItem
             VideoPlayer1.Ctlcontrols.play()
         End If
 
@@ -87,7 +87,7 @@ Public Class Form1
     Sub ImportListeDossier1()
         ListBox3.Items.Clear()
 
-        For Each foundDirectory In Directory.GetDirectories(TextBox1.Text, ".", SearchOption.TopDirectoryOnly)
+        For Each foundDirectory In Directory.GetDirectories(ComboBox1.Text, ".", SearchOption.TopDirectoryOnly)
             Dim dossier As String = System.IO.Path.GetFileName(foundDirectory)
             ListBox3.Items.Add(dossier)
         Next
@@ -98,7 +98,7 @@ Public Class Form1
         ListBox1.Items.Clear()
 
         'On boucle sur les fichiers et on ajoute a la liste
-        Dim di As New IO.DirectoryInfo(TextBox1.Text)
+        Dim di As New IO.DirectoryInfo(ComboBox1.Text)
         Dim aryFi As IO.FileInfo() = di.GetFiles("*", SearchOption.TopDirectoryOnly)
         Dim fi As IO.FileInfo
 
@@ -107,20 +107,20 @@ Public Class Form1
         Next
     End Sub
     Private Sub PictureBox1_DoubleClick(sender As Object, e As EventArgs) Handles PictureBox1.DoubleClick
-        Process.Start(TextBox1.Text & "\" & ListBox1.SelectedItem)
+        Process.Start(ComboBox1.Text & "\" & ListBox1.SelectedItem)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         'On check si ca existe, au cas ou on le cree
-        If (Not System.IO.Directory.Exists(TextBox1.Text & "\" & TextBox3.Text)) Then
-            System.IO.Directory.CreateDirectory(TextBox1.Text & "\" & TextBox3.Text)
+        If (Not System.IO.Directory.Exists(ComboBox1.Text & "\" & TextBox3.Text)) Then
+            System.IO.Directory.CreateDirectory(ComboBox1.Text & "\" & TextBox3.Text)
         End If
         ListBox3.Items.Add(TextBox3.Text)
         TextBox3.Text = Nothing
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Dim path As String = TextBox1.Text & "\" & ListBox3.SelectedItem
+        Dim path As String = ComboBox1.Text & "\" & ListBox3.SelectedItem
         System.IO.Directory.Delete(path, True)
     End Sub
 
@@ -131,7 +131,7 @@ Public Class Form1
         End If
 
         For Each itm As String In ListBox1.SelectedItems
-            Dim path As String = TextBox1.Text & "\" & itm.ToString
+            Dim path As String = ComboBox1.Text & "\" & itm.ToString
             System.IO.File.Delete(path)
         Next
 
@@ -157,8 +157,8 @@ Public Class Form1
         VideoPlayer1.URL = Nothing
 
         For Each itm As String In ListBox1.SelectedItems
-            Dim cheminoriginal As String = TextBox1.Text & "\" & itm.ToString
-            Dim cheminfinal As String = TextBox1.Text & "\" & ListBox3.SelectedItem & "\" & itm.ToString
+            Dim cheminoriginal As String = ComboBox1.Text & "\" & itm.ToString
+            Dim cheminfinal As String = ComboBox1.Text & "\" & ListBox3.SelectedItem & "\" & itm.ToString
 
             On Error Resume Next
             File.Move(cheminoriginal, cheminfinal)
@@ -229,17 +229,19 @@ Public Class Form1
     End Sub
 
     Sub gestiondoublon()
-        For Each itm As String In ListBox1.SelectedItems
-            Dim cheminoriginal As String = TextBox1.Text & "\" & itm.ToString
+        For j = 0 To ListBox1.Items.Count - 1
+            Dim cheminoriginal As String = ComboBox1.Text & "\" & ListBox1.Items(j)
+            Dim nomdufichier As String = ListBox1.Items(j)
 
             For i = 0 To ListBox3.Items.Count - 1
-                Dim chemindossierfinal As String = TextBox1.Text & "\" & ListBox3.Items(i).ToString
-                Dim nbdansdossier = Directory.GetFiles(chemindossierfinal, TextBox1.Text).Count
+                Dim chemindossierfinal As String = ComboBox1.Text & "\" & ListBox3.Items(i).ToString
+                Dim nbdansdossier = Directory.GetFiles(chemindossierfinal, nomdufichier).Count
 
                 If nbdansdossier > 0 Then
-                    System.IO.Directory.Delete(cheminoriginal, True)
+                    System.IO.File.Delete(cheminoriginal)
                 End If
             Next
         Next
+        Call ImportFichiers1()
     End Sub
 End Class

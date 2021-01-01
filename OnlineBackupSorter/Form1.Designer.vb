@@ -46,6 +46,7 @@ Partial Class Form1
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VideoPlayer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -89,7 +90,7 @@ Partial Class Form1
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(732, 485)
+        Me.TextBox3.Location = New System.Drawing.Point(733, 475)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(161, 20)
         Me.TextBox3.TabIndex = 8
@@ -97,7 +98,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(772, 469)
+        Me.Label1.Location = New System.Drawing.Point(773, 459)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(95, 13)
         Me.Label1.TabIndex = 9
@@ -113,7 +114,7 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(788, 509)
+        Me.Button3.Location = New System.Drawing.Point(789, 499)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(56, 36)
         Me.Button3.TabIndex = 11
@@ -165,10 +166,10 @@ Partial Class Form1
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(730, 562)
+        Me.TextBox4.Location = New System.Drawing.Point(731, 541)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
-        Me.TextBox4.Size = New System.Drawing.Size(165, 20)
+        Me.TextBox4.Size = New System.Drawing.Size(163, 20)
         Me.TextBox4.TabIndex = 17
         '
         'ComboBox1
@@ -263,11 +264,21 @@ Partial Class Form1
         Me.Label2.TabIndex = 25
         Me.Label2.Text = "List des Dossiers trouvés dedans : "
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(811, 574)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(88, 13)
+        Me.Label3.TabIndex = 26
+        Me.Label3.Text = "Soaresden - v1.1"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(904, 591)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Button9)
         Me.Controls.Add(Me.Panel1)
@@ -320,4 +331,5 @@ Partial Class Form1
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Button9 As Button
     Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
 End Class
